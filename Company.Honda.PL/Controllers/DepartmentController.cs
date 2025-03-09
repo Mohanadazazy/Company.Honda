@@ -1,5 +1,7 @@
 ﻿using Company.Honda.BLL.Interfaces;
 using Company.Honda.BLL.Repositories;
+using Company.Honda.DAL.Models;
+using Company.Honda.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Honda.PL.Controllers
@@ -19,6 +21,32 @@ namespace Company.Honda.PL.Controllers
         {
             var departments = _departmentRepository.GetAll();
             return View(departments);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(DepartmentDto model)
+        {
+            if(ModelState.IsValid)
+            {
+                Department department = new Department()
+                {
+                    Code = model.Code,
+                    Name = model.Name,
+                    CreateAt = model.CreateAt,
+                };
+                var count = _departmentRepository.Add(department);
+                if(count > 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View();
         }
     }
 }
