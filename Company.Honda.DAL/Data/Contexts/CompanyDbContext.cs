@@ -21,6 +21,6 @@ namespace Company.Honda.DAL.Data.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        DbSet<Department> Department { get; set; } 
+        public DbSet<Department> Department { get; set; } 
     }
 }
