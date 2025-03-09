@@ -11,10 +11,14 @@ namespace Company.Honda.DAL.Data.Contexts
 {
     public class CompanyDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server = .; Database = CompanyPr; Trusted_Connection = True; TrustServerCertificate = True;");
+            
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server = .; Database = CompanyPr; Trusted_Connection = True; TrustServerCertificate = True;");
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
