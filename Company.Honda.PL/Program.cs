@@ -1,3 +1,8 @@
+using Company.Honda.BLL.Interfaces;
+using Company.Honda.BLL.Repositories;
+using Company.Honda.DAL.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Company.Honda.PL
 {
     public class Program
@@ -8,6 +13,11 @@ namespace Company.Honda.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            builder.Services.AddDbContext<CompanyDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
