@@ -50,5 +50,61 @@ namespace Company.Honda.PL.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id is null) return BadRequest();
+            var model = _employeeRepository.Get(id.Value);
+            if (model is null) return NotFound();
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id is null) return BadRequest();
+            var model = _employeeRepository.Get(id.Value);
+            if (model is null) return NotFound();
+            EmployeeDto employee = new EmployeeDto()
+            {
+                Name = model.Name,
+                Address = model.Address,
+                Age = model.Age,
+                CreateAt = model.CreateAt,
+                Email = model.Email,
+                HiringDate = model.HiringDate,
+                IsActive = model.IsActive,
+                IsDeleted = model.IsDeleted,
+                Phone = model.Phone,
+                Salary = model.Salary
+            };
+            return View(employee);
+        }
+        [HttpPost]
+        public IActionResult Edit([FromRoute]int? id,EmployeeDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee employee = new Employee()
+                {
+                    Id = id.Value,
+                    Name = model.Name,
+                    Address= model.Address,
+                    Age = model.Age,
+                    CreateAt = model.CreateAt,
+                    Email = model.Email,
+                    HiringDate = model.HiringDate,
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    Phone = model.Phone,
+                    Salary = model.Salary
+                };
+                var count = _employeeRepository.Update(employee);
+                if (count > 0)
+                    return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
     }
 }
