@@ -1,0 +1,32 @@
+﻿@using Company.Honda.PL.Dtos
+@model DepartmentDto
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Department</h1>
+<br />
+<br />
+
+<form asp-action="Edit">
+    <div class="my-3">
+        <label asp-for="Code">Code</label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code"></span>
+    </div>
+    <div class="my-3">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="my-3">
+        <label asp-for="CreateAt">CreateAt</label>
+        <input asp-for="CreateAt" class="form-control" />
+        <span asp-validation-for="CreateAt"></span>
+    </div>
+    <div class="my-3">
+        <input type="submit" value="Update" class="btn btn-warning"/>
+        <a class="btn btn-secondary" asp-action="Index">Back To List</a>
+    </div>
+</form>
+
