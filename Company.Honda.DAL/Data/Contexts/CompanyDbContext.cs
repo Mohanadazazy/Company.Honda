@@ -26,5 +26,6 @@ namespace Company.Honda.DAL.Data.Contexts
         }
 
         public DbSet<Department> Department { get; set; } 
+        public DbSet<Employee> Employees { get; set; }
     }
 }
