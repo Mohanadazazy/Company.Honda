@@ -91,14 +91,13 @@ namespace Company.Honda.PL.Controllers
             return View(model);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
-            var department = _departmentRepository.Get(id);
+            if (id is null) return BadRequest();
+            var department = _departmentRepository.Get(id.Value);
             if (department == null) return NotFound();
-            var count = _departmentRepository.Delete(department);
-            if(count > 0)
-                return RedirectToAction(nameof(Index));
-            return BadRequest();
+            _departmentRepository.Delete(department);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
