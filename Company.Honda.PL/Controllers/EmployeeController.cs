@@ -27,6 +27,7 @@ namespace Company.Honda.PL.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(EmployeeDto model)
         {
             if (ModelState.IsValid)
@@ -82,6 +83,7 @@ namespace Company.Honda.PL.Controllers
             return View(employee);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute]int? id,EmployeeDto model)
         {
             if (ModelState.IsValid)
@@ -105,6 +107,15 @@ namespace Company.Honda.PL.Controllers
                     return RedirectToAction(nameof(Index));
             }
             return View(model);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id is null) return BadRequest();
+            var employee = _employeeRepository.Get(id.Value);
+            if (employee == null) return NotFound();
+            _employeeRepository.Delete(employee);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
