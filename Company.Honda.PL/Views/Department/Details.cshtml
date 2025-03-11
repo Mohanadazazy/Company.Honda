@@ -1,0 +1,30 @@
+﻿@using Company.Honda.DAL.Models
+@model Department
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Department Details</h1>
+<br />
+<br />
+
+<div class="my-3">
+    <lable asp-for="Code">Code</lable>
+    <input asp-for="Code" disabled class="form-control"/>
+    <span asp-validation-for="Code"></span>
+</div>
+<div class="my-3">
+    <lable asp-for="Name">Name</lable>
+    <input asp-for="Name" disabled class="form-control"/>
+    <span asp-validation-for="Name"></span>
+</div>
+<div class="my-3">
+    <lable asp-for="CreateAt">Date Of Creation</lable>
+    <input asp-for="CreateAt" disabled class="form-control"/>
+    <span asp-validation-for="CreateAt"></span>
+</div>
+<div class="my-3">
+    <a asp-action="Edit" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+</div>
+

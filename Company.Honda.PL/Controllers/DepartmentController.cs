@@ -48,5 +48,13 @@ namespace Company.Honda.PL.Controllers
             }
             return View();
         }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null) return BadRequest();
+            var Department = _departmentRepository.Get(id.Value);
+            if(Department == null) return NotFound();
+            return View(Department);
+        }
     }
 }
