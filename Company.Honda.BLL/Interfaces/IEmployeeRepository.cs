@@ -7,7 +7,7 @@ using Company.Honda.DAL.Models;
 
 namespace Company.Honda.BLL.Interfaces
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IGenericRepository<Employee>
     {
         //Employee GetByName(string name);
     }
