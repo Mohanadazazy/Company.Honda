@@ -10,42 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company.Honda.BLL.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>,IEmployeeRepository
     {
-        private readonly CompanyDbContext _context;
-        public EmployeeRepository(CompanyDbContext dbContext)
+
+        public EmployeeRepository(CompanyDbContext dbContext) : base(dbContext)
         {
-            _context = dbContext;
-        }
-        public Employee? Get(int id)
-        {
-            return _context.Employees.Find(id);
+            
         }
 
-        public IEnumerable<Employee> GetAll()
-        {
-            return _context.Employees.ToList();
-        }
 
-        public int Add(Employee employee)
-        {
-            _context.Employees.Add(employee);
-            return _context.SaveChanges();
-        }
-        public int Update(Employee employee)
-        {
-            _context.Employees.Update(employee);
-            return _context.SaveChanges();
-        }
 
-        public int Delete(Employee employee)
-        {
-            _context.Employees.Remove(employee);
-            return _context.SaveChanges();
-        }
-
-        
-
-        
     }
 }
