@@ -38,6 +38,7 @@
                 <th>IsDeleted</th>
                 <th>Hiring Date</th>
                 <th>Create At</th>
+                <th>Department</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Remove</th>
@@ -56,6 +57,14 @@
                 <td>@item.IsDeleted</td>
                 <td>@item.HiringDate</td>
                 <td>@item.CreateAt</td>
+                @if(item.Department?.Name is null)
+                {
+                    <td>No Department</td>
+                }
+                else
+                {
+                    <td>@item.Department.Name</td>
+                }
                 <partial name="_DepartmentEmployeeIndexButtonsPartialView" model="@item.Id"/>
             </tr>
         }

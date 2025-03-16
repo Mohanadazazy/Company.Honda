@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Company.Honda.DAL.Models;
 
 namespace Company.Honda.PL.Dtos
 {
@@ -12,5 +13,6 @@ namespace Company.Honda.PL.Dtos
 
         [Required(ErrorMessage = "Date Of Creation Is Required")]
         public DateTime CreateAt { get; set; }
+        
     }
 }

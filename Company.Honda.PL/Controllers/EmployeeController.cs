@@ -9,10 +9,12 @@ namespace Company.Honda.PL.Controllers
     public class EmployeeController : Controller
     {
         private IEmployeeRepository _employeeRepository;
+        private IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
         }
         [HttpGet]
         public IActionResult Index()
@@ -30,6 +32,8 @@ namespace Company.Honda.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var departments = _departmentRepository.GetAll();
+            ViewData["Departments"] = departments;
             return View();
         }
         [HttpPost]
@@ -49,7 +53,8 @@ namespace Company.Honda.PL.Controllers
                     IsActive = model.IsActive,
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
-                    Salary = model.Salary
+                    Salary = model.Salary,
+                    DepartmentId = model.DepartmentId,
                 };
                 var count = _employeeRepository.Add(Employee);
                 if (count > 0)
@@ -74,6 +79,8 @@ namespace Company.Honda.PL.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
+            var departments = _departmentRepository.GetAll();
+            ViewData["Departments"] = departments;
             if (id is null) return BadRequest();
             var model = _employeeRepository.Get(id.Value);
             if (model is null) return NotFound();
@@ -88,7 +95,9 @@ namespace Company.Honda.PL.Controllers
                 IsActive = model.IsActive,
                 IsDeleted = model.IsDeleted,
                 Phone = model.Phone,
-                Salary = model.Salary
+                Salary = model.Salary,
+                Department = model.Department,
+                DepartmentId = model.DepartmentId
             };
             return View(employee);
         }
@@ -110,7 +119,9 @@ namespace Company.Honda.PL.Controllers
                     IsActive = model.IsActive,
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
-                    Salary = model.Salary
+                    Salary = model.Salary,
+                    Department = model.Department,
+                    DepartmentId = model.DepartmentId
                 };
                 var count = _employeeRepository.Update(employee);
                 if (count > 0)
