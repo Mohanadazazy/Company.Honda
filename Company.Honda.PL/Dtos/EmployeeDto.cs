@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Company.Honda.DAL.Models;
 
 namespace Company.Honda.PL.Dtos
 {
@@ -18,5 +20,8 @@ namespace Company.Honda.PL.Dtos
         public bool IsDeleted { get; set; }
         public DateTime HiringDate { get; set; }
         public DateTime CreateAt { get; set; }
+        [DisplayName("Department")]
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
     }
 }

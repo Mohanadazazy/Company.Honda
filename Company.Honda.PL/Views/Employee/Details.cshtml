@@ -59,6 +59,10 @@
     <input asp-for="CreateAt" class="form-control" disabled/>
     <span asp-validation-for="CreateAt" class="text-danger"></span>
 </div>
+<div>
+    <label asp-for="Department"></label>
+    <input asp-for="Department.Name" disabled class="form-control"/>
+</div>
 <div class="my-3">
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
     <a asp-action="Index" class="btn btn-secondary">Back To List</a>
