@@ -18,6 +18,12 @@ namespace Company.Honda.PL.Controllers
         public IActionResult Index()
         {
             var employees = _employeeRepository.GetAll();
+            // Dictionary   : 3 Properties
+            // 1. ViewData  : Transfer Extra Information From Controller To View
+            ViewData["Message"] = "Hello From ViewData";
+            // 2. ViewBag   : Transfer Extra Information From Controller To View
+            //ViewBag.Message = "Hello Form ViewBag";
+
             return View(employees);
         }
 
@@ -46,8 +52,12 @@ namespace Company.Honda.PL.Controllers
                     Salary = model.Salary
                 };
                 var count = _employeeRepository.Add(Employee);
-                if (count > 0) 
+                if (count > 0)
+                {
+                    TempData["Message"] = "Employee Created Successfuly";
                     return RedirectToAction(nameof(Index));
+                }
+                    
             }
             return View(model);
         }
