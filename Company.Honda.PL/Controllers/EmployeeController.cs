@@ -17,9 +17,18 @@ namespace Company.Honda.PL.Controllers
             _departmentRepository = departmentRepository;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? SearchInput)
         {
-            var employees = _employeeRepository.GetAll();
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                employees = _employeeRepository.GetAll();
+            }
+            else
+            {
+                employees = _employeeRepository.GetByName(SearchInput);
+            }
+                
             // Dictionary   : 3 Properties
             // 1. ViewData  : Transfer Extra Information From Controller To View
             ViewData["Message"] = "Hello From ViewData";

@@ -9,6 +9,6 @@ namespace Company.Honda.BLL.Interfaces
 {
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-        //Employee GetByName(string name);
+        IEnumerable<Employee> GetByName(string name);
     }
 }
