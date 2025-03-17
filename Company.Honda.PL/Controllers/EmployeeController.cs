@@ -1,8 +1,10 @@
-﻿using Company.Honda.BLL.Interfaces;
+﻿using AutoMapper;
+using Company.Honda.BLL.Interfaces;
 using Company.Honda.BLL.Repositories;
 using Company.Honda.DAL.Models;
 using Company.Honda.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Company.Honda.PL.Controllers
 {
@@ -10,11 +12,13 @@ namespace Company.Honda.PL.Controllers
     {
         private IEmployeeRepository _employeeRepository;
         private IDepartmentRepository _departmentRepository;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository,IMapper mapper)
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult Index(string? SearchInput)
@@ -51,21 +55,22 @@ namespace Company.Honda.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Employee = new Employee()
-                {
-                    Name = model.Name,
-                    Address = model.Address,
-                    Age = model.Age,
-                    CreateAt = model.CreateAt,
-                    Email = model.Email,
-                    HiringDate = model.HiringDate,
-                    IsActive = model.IsActive,
-                    IsDeleted = model.IsDeleted,
-                    Phone = model.Phone,
-                    Salary = model.Salary,
-                    DepartmentId = model.DepartmentId,
-                };
-                var count = _employeeRepository.Add(Employee);
+                //var Employee = new Employee()
+                //{
+                //    Name = model.Name,
+                //    Address = model.Address,
+                //    Age = model.Age,
+                //    CreateAt = model.CreateAt,
+                //    Email = model.Email,
+                //    HiringDate = model.HiringDate,
+                //    IsActive = model.IsActive,
+                //    IsDeleted = model.IsDeleted,
+                //    Phone = model.Phone,
+                //    Salary = model.Salary,
+                //    DepartmentId = model.DepartmentId,
+                //};
+                var employee= _mapper.Map<Employee>(model);
+                var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
                     TempData["Message"] = "Employee Created Successfuly";
@@ -93,21 +98,22 @@ namespace Company.Honda.PL.Controllers
             if (id is null) return BadRequest();
             var model = _employeeRepository.Get(id.Value);
             if (model is null) return NotFound();
-            EmployeeDto employee = new EmployeeDto()
-            {
-                Name = model.Name,
-                Address = model.Address,
-                Age = model.Age,
-                CreateAt = model.CreateAt,
-                Email = model.Email,
-                HiringDate = model.HiringDate,
-                IsActive = model.IsActive,
-                IsDeleted = model.IsDeleted,
-                Phone = model.Phone,
-                Salary = model.Salary,
-                Department = model.Department,
-                DepartmentId = model.DepartmentId
-            };
+            //EmployeeDto employee = new EmployeeDto()
+            //{
+            //    Name = model.Name,
+            //    Address = model.Address,
+            //    Age = model.Age,
+            //    CreateAt = model.CreateAt,
+            //    Email = model.Email,
+            //    HiringDate = model.HiringDate,
+            //    IsActive = model.IsActive,
+            //    IsDeleted = model.IsDeleted,
+            //    Phone = model.Phone,
+            //    Salary = model.Salary,
+            //    Department = model.Department,
+            //    DepartmentId = model.DepartmentId
+            //};
+            var employee = _mapper.Map<EmployeeDto>(model);
             return View(employee);
         }
         [HttpPost]
