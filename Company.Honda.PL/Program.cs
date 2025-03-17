@@ -1,6 +1,7 @@
 using Company.Honda.BLL.Interfaces;
 using Company.Honda.BLL.Repositories;
 using Company.Honda.DAL.Data.Contexts;
+using Company.Honda.PL.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Honda.PL
@@ -19,6 +20,7 @@ namespace Company.Honda.PL
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddScoped<IEmployeeRepository,EmployeeRepository>();
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,6 +30,10 @@ namespace Company.Honda.PL
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // Life Time
+            // builder.Service.AddScoped();     // Create Object Life Time Per Request - UnReachable Object
+            // builder.Service.AddTransient();  // Create Object Life Time Per Operation
+            // builder.Service.AddSigelton();   // Create Object Life Time Per Application
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
