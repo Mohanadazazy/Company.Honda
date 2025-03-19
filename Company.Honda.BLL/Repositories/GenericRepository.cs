@@ -17,39 +17,36 @@ namespace Company.Honda.BLL.Repositories
         {
             _context = dbContext;
         }
-        public T? Get(int id)
+        public async Task<T?> GetAsync(int id)
         {
             if (typeof(T) == typeof(Employee))
             {
-                return _context.Employees.Include(E => E.Department).FirstOrDefault(E => E.Id == id) as T;
+                return await _context.Employees.Include(E => E.Department).FirstOrDefaultAsync(E => E.Id == id) as T;
             }
             return _context.Set<T>().Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             if(typeof(T) == typeof(Employee))
             {
-                return (IEnumerable<T>) _context.Employees.Include(E => E.Department).ToList();
+                return (IEnumerable<T>) await _context.Employees.Include(E => E.Department).ToListAsync();
             }
             return _context.Set<T>().ToList();
         }
 
-        public int Add(T employee)
+        public async Task AddAsync(T employee)
         {
-            _context.Set<T>().Add(employee);
-            return _context.SaveChanges();
+            await _context.Set<T>().AddAsync(employee);
         }
-        public int Update(T employee)
+        public void Update(T employee)
         {
             _context.Set<T>().Update(employee);
-            return _context.SaveChanges();
         }
 
-        public int Delete(T employee)
+        public void Delete(T employee)
         {
             _context.Set<T>().Remove(employee);
-            return _context.SaveChanges();
         }
     }
 }

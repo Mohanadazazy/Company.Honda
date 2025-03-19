@@ -9,10 +9,10 @@ namespace Company.Honda.BLL.Interfaces
 {
     public interface IGenericRepository <T> where T : BaseEntity
     {
-        public IEnumerable<T> GetAll();
-        public T? Get(int id);
-        public int Add(T department);
-        public int Update(T department);
-        public int Delete(T id);
+        public Task<IEnumerable<T>> GetAllAsync();
+        public Task<T?> GetAsync(int id);
+        public Task AddAsync(T model);
+        public void Update(T model);
+        public void Delete(T id);
     }
 }
