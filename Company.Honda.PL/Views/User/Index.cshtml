@@ -1,0 +1,77 @@
+﻿@using Company.Honda.PL.Dtos
+@model IEnumerable<UserToReturnDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h1>All Users</h1>
+<br />
+<br />
+
+@* @if (TempData["Message"] is not null) *@
+@* { *@
+@*     <div class="my-3 alert alert-success"> *@
+@*         <p>@TempData["Message"]</p> *@
+@*     </div> *@
+@* } *@
+
+<div>
+    <form class="d-flex my-3">
+        <input id="SearchInput" placeholder="Search By Name" type="search" name="SearchInput" class="form-control w-50 me-3" />
+        <input type="submit" value="Search" class="btn btn-success" />
+    </form>
+</div>
+
+
+<br />
+<br />
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover table-striped table-responsive-md">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.UserName</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>
+                    @foreach (var role in item.Roles)
+                    {
+                        <span>@role</span>
+                    }
+                </td>
+                <partial name="_DepartmentEmployeeIndexButtonsPartialView" model="@item.Id" />
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h3>There Is No Users :)</h3>
+    </div>
+}
+
+
+

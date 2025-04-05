@@ -1,0 +1,13 @@
+﻿@using Company.Honda.DAL.Models
+@using Company.Honda.PL.Dtos
+@model RoleToReturnDto
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="my-3">
+    <label asp-for="Name">UserName</label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>

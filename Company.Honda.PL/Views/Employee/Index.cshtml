@@ -74,7 +74,7 @@
                 {
                     <td>@item.Department.Name</td>
                 }
-                <partial name="_DepartmentEmployeeIndexButtonsPartialView" model="@item.Id"/>
+                <partial name="_DepartmentEmployeeIndexButtonsPartialView" model="@item.Id.ToString()"/>
             </tr>
         }
     </table>

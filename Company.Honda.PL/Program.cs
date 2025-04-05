@@ -2,7 +2,9 @@ using Company.Honda.BLL;
 using Company.Honda.BLL.Interfaces;
 using Company.Honda.BLL.Repositories;
 using Company.Honda.DAL.Data.Contexts;
+using Company.Honda.DAL.Models;
 using Company.Honda.PL.Mapping;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Honda.PL
@@ -23,6 +25,13 @@ namespace Company.Honda.PL
             //builder.Services.AddScoped<IEmployeeRepository,EmployeeRepository>();
             builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddIdentity<AppUser,IdentityRole>()
+                .AddEntityFrameworkStores<CompanyDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(config => 
+            config.LoginPath = "/Account/SignIn");
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -41,7 +50,8 @@ namespace Company.Honda.PL
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

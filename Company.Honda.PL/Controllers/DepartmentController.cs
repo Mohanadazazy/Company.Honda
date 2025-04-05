@@ -3,11 +3,13 @@ using Company.Honda.BLL.Interfaces;
 using Company.Honda.BLL.Repositories;
 using Company.Honda.DAL.Models;
 using Company.Honda.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Honda.PL.Controllers
 {
     // MVC Controller
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

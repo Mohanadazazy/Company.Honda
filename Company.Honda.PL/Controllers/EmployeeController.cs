@@ -4,11 +4,13 @@ using Company.Honda.BLL.Repositories;
 using Company.Honda.DAL.Models;
 using Company.Honda.PL.Dtos;
 using Company.Honda.PL.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Company.Honda.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
